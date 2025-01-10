@@ -1,0 +1,40 @@
+name: CI/CD with MinGW
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install MinGW
+      run: |
+        mkdir C:\mingw
+        curl -L -o mingw.tar.gz https://sourceforge.net/projects/mingw-w64/files/latest/download
+        tar -xf mingw.tar.gz -C C:\mingw --strip-components=1
+
+    - name: Create Environment File
+      run: |
+        echo "C:\mingw\bin" >> $GITHUB_ENV
+        echo "C:\mingw\mingw32\bin" >> $GITHUB_ENV
+
+    - name: Build
+      run: g++ -o my_program main.cpp
+
+    - name: Test
+      run: ./my_program
+
+    - name: Archive Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: my_programs
+        path: ./*.exe
