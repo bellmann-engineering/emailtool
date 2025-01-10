@@ -56,6 +56,7 @@ int main() {
     handler.addEmail("user@example.com");
     handler.addEmail("invalid-email@");
     handler.addEmail("another.valid@example.org");
+    handler.addEmail("kb@bellmann-engineering.com");
 
     // Print all emails
     handler.printEmails();
