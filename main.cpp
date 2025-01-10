@@ -45,7 +45,7 @@ public:
     // Clear all stored emails
     void clearEmails() {
         emailAddresses.clear();
-        std::cout << "Email list cleared." << std::endl;
+        std::cout << "Email list cleared." << std::endl
     }
 };
 
